@@ -28,7 +28,7 @@ def longest_ss(s):
 
 
 if __name__ == "__main__":
-    s = 'asdkffsdd,'
+    s = 'askkkkkksl,'
     print(s)
     print('='*len(s))
     print(longest_ss(s))
