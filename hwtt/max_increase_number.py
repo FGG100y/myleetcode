@@ -2,6 +2,8 @@
 # Input: 123526897215, the increasing numbers includs: 1235, 2689, 15
 # Output: 2689, the maximum one
 
+#  double pointers trick enhancement
+
 
 def max_num(n):
     results = set()
