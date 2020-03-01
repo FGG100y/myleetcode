@@ -4,6 +4,7 @@
 
 
 def compress_string(s):
+    # be careful with the last loop
     res = ''
     i, j = 0, 0
     while i < len(s):
@@ -15,7 +16,7 @@ def compress_string(s):
             res += s[i]
         else:
             res += str(j - i) + s[i]
-        print(res)
+        #  print(res)
         i = j
     return res
 
