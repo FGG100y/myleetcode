@@ -22,6 +22,7 @@ def print_path(path):
     return res
 
 
+# ----------------------------------------------------------------------------
 def DFS(graph, start, end, path, shortest, to_print=False):
     """return a shortest path from start to end in graph
 
@@ -55,7 +56,42 @@ def shortest_path(graph, start, end, to_print=False):
     return DFS(graph, start, end, [], None, to_print)
 
 
-def test_sp():
+def test_sp_dfs():
+    sp = shortest_path(g, Anodes[0], Anodes[18], to_print=True)
+    print(f"The shortest path is {sp}")
+# ----------------------------------------------------------------------------
+
+
+# ----------------------------------------------------------------------------
+def BFS(graph, start, end, to_print=False):
+    init_path = [start]
+    path_queue = [init_path]
+    if to_print:
+        cpath = print_path(path)
+        print(f"Current BFS path: {cpath}")
+    while len(path_queue) != 0:
+        # get and rm oldest element in path_queue
+        tmp_path = path_queue.pop(0)
+        cpath = print_path(tmp_path)
+        print(f"Current BFS path: {cpath}")
+        last_node = tmp_path[-1]
+        if last_node == end:
+            return tmp_path
+        for next_node in graph.children_of(last_node):
+            if next_node not in tmp_path:
+                new_path = tmp_path + [next_node]
+                path_queue.append(new_path)
+    return None
+
+
+def test_sp_bfs():
+    sp = BFS(g, start, end)
+    print(f"The shortest path is {sp}")
+
+
+# ----------------------------------------------------------------------------
+# build the graph to test the DFS and BFS algorithms
+def build_graph():
     Anodes, Bnodes, Tnodes = [], [], []
     # line A stations
     for name in range(1, 19):
@@ -81,9 +117,7 @@ def test_sp():
     # add edges to graph's nodes
     #  g.add_edge(Edge(nodes[], nodes[]))
     #
-    sp = shortest_path(g, Anodes[0], Anodes[18], to_print=True)
-    print(f"The shortest path is {sp}")
-
+# ----------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    test_sp()
+    test_sp_dfs()
