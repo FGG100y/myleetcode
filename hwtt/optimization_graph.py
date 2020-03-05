@@ -18,7 +18,7 @@ class Node(object):
         return self.name
 
 
-class Edge():
+class Edge(object):
     """description"""
     def __init__(self, src, dest):
         """
