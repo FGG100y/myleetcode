@@ -15,6 +15,26 @@ def g():
     print(X)
 
 
+def g2():
+    global X
+    X = 22              # Change global in module
+    print(X)
+    X = 11              # Restore the global X to 11
+
+
+def h1():
+    X = 666             # Local in function
+    def nested():
+        print(X)        # Reference local in encloing scope (666)
+
+
+def h2():
+    X = 666             # Local in function
+    def nested():
+        nonlocal X      # Python3.x statement
+        X = 777         # Change local in encloing scope
+
+
 class C:
     X = 33              # Class attribute (C.X)
     def m(self):
