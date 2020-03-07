@@ -4,9 +4,10 @@
 # shortest path: Depth-First-Search
 
 
-#  from .optimization_graph import Digraph
-from .optimization_graph import Graph
-from .optimization_graph import Node
+#  from optimization_graph import Digraph
+from optimization_graph import Graph
+from optimization_graph import Node
+from optimization_graph import Edge
 
 
 def print_path(path):
@@ -41,14 +42,14 @@ def DFS(graph, start, end, path, shortest, to_print=False):
         return path
     for node in graph.children_of(start):
         if node not in path:  # advoid stuck in cycle path
-            if shortest == None or len(path) < len(shortest):
+            if shortest is None or len(path) < len(shortest):
                 new_path = DFS(graph, node, end, path, shortest, to_print)
-                if new_path != None:
+                if new_path is not None:
                     shortest = new_path
     return shortest
 
 
-def shortest_path(graph, start, end, to_print=False):
+def dfs_shortest_path(graph, start, end, to_print=False):
     """return a shortest_path from start to end in graph"""
     # function called DFS to initialize the seaching progress
     # path=[] : the current path being explored is empty
@@ -56,9 +57,6 @@ def shortest_path(graph, start, end, to_print=False):
     return DFS(graph, start, end, [], None, to_print)
 
 
-def test_sp_dfs():
-    sp = shortest_path(g, Anodes[0], Anodes[18], to_print=True)
-    print(f"The shortest path is {sp}")
 # ----------------------------------------------------------------------------
 
 
@@ -67,7 +65,7 @@ def BFS(graph, start, end, to_print=False):
     init_path = [start]
     path_queue = [init_path]
     if to_print:
-        cpath = print_path(path)
+        cpath = print_path(init_path)
         print(f"Current BFS path: {cpath}")
     while len(path_queue) != 0:
         # get and rm oldest element in path_queue
@@ -84,14 +82,50 @@ def BFS(graph, start, end, to_print=False):
     return None
 
 
-def test_sp_bfs():
-    sp = BFS(g, start, end)
-    print(f"The shortest path is {sp}")
-
-
 # ----------------------------------------------------------------------------
 # build the graph to test the DFS and BFS algorithms
-def build_graph():
+def build_graph(Anodes, Bnodes, Tnodes):
+    """return a graph
+    :type Anodes: list of Nodes
+    :type Bnodes: list of Nodes
+    :type Tnodes: list of Nodes
+    """
+    g = Graph()
+    for n in Anodes:
+        g.add_node(n)
+    for n in Bnodes:
+        g.add_node(n)
+    for n in Tnodes:
+        g.add_node(n)
+    # add Anodes' edges to graph
+    for i in range(len(Anodes)):
+        if i == 8:
+            g.add_edge(Edge(Anodes[i], Tnodes[0]))
+            g.add_edge(Edge(Tnodes[0], Anodes[i+1]))
+        elif i == 12:
+            g.add_edge(Edge(Anodes[i], Tnodes[1]))
+            g.add_edge(Edge(Tnodes[1], Anodes[i+1]))
+        elif i == len(Anodes)-1:
+            g.add_edge(Edge(Anodes[-1], Anodes[0]))
+        else:
+            g.add_edge(Edge(Anodes[i], Anodes[i+1]))
+    # add Bnodes' edges to graph
+    for i in range(len(Bnodes)-1):
+        if i == 4:
+            g.add_edge(Edge(Bnodes[i], Tnodes[0]))
+            g.add_edge(Edge(Tnodes[0], Bnodes[i+1]))
+        elif i == 9:
+            g.add_edge(Edge(Bnodes[i], Tnodes[1]))
+            g.add_edge(Edge(Tnodes[1], Bnodes[i+1]))
+        else:
+            g.add_edge(Edge(Bnodes[i], Bnodes[i+1]))
+
+    return g
+# ----------------------------------------------------------------------------
+
+
+if __name__ == "__main__":
+    # subway stations' names
     Anodes, Bnodes, Tnodes = [], [], []
     # line A stations
     for name in range(1, 19):
@@ -105,19 +139,10 @@ def build_graph():
     for name in range(1, 3):
         sname = 'T' + str(name)
         Tnodes.append(Node(sname))
-
-    # create a graph
-    g = Graph()
-    for n in Anodes:
-        g.add_node(n)
-    for n in Bnodes:
-        g.add_node(n)
-    for n in Tnodes:
-        g.add_node(n)
-    # add edges to graph's nodes
-    #  g.add_edge(Edge(nodes[], nodes[]))
-    #
-# ----------------------------------------------------------------------------
-
-if __name__ == "__main__":
-    test_sp_dfs()
+    g = build_graph(Anodes, Bnodes, Tnodes)
+    #  __import__('pdb').set_trace()
+    # test the DFS and BFS
+    sp = dfs_shortest_path(g, Anodes[10], Bnodes[1], to_print=True)
+    #  sp = BFS(g, start=Anodes[13], end=Bnodes[5])
+    sp = print_path(sp)
+    print(f"The shortest path is {sp}")
