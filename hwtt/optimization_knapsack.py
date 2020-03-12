@@ -69,6 +69,7 @@ class Item(object):
         return self.__str__()
 
 
+# STILL NOT FULLY UNDERSTANT THIS PROGRAM YET. Thu 12 Mar 2020 22:43:20
 def fast_maxval(to_consider, avail, memo={}):
     """Dynamic programming solution to knapsack problem
 
