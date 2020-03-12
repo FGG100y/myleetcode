@@ -107,9 +107,7 @@ def fast_maxval(to_consider, avail, memo={}):
 def test_fast_maxval(max_weight=100):
     items = build_items()
     result = fast_maxval(items, max_weight)
-    print(result[0])
-    for i in result[1]:
-        print(i)
+    print(result)
 
 
 def build_items():
@@ -121,6 +119,6 @@ def build_items():
 
 
 if __name__ == "__main__":
-    #  test_fast_maxval()
-    items = [Item('test', i, 1111) for i in range(4)]
-    print(items)
+    test_fast_maxval()
+    #  items = [Item('test', i, 1111) for i in range(4)]
+    #  print(items)
