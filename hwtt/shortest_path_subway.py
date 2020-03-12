@@ -49,14 +49,13 @@ def DFS(graph, start, end, path, shortest, to_print=False):
     return shortest
 
 
+# DFS did not work correctly
 def dfs_shortest_path(graph, start, end, to_print=False):
     """return a shortest_path from start to end in graph"""
     # function called DFS to initialize the seaching progress
     # path=[] : the current path being explored is empty
     # shortest is None : no path from start to end has yet been found
     return DFS(graph, start, end, [], None, to_print)
-
-
 # ----------------------------------------------------------------------------
 
 
@@ -83,7 +82,7 @@ def BFS(graph, start, end, to_print=False):
 
 
 # ----------------------------------------------------------------------------
-# build the graph to test the DFS and BFS algorithms
+# build the graph to test the DFS and BFS algorithms | HuaWei tech-exam
 def build_graph(Anodes, Bnodes, Tnodes):
     """return a graph
     :type Anodes: list of Nodes
@@ -142,7 +141,7 @@ if __name__ == "__main__":
     g = build_graph(Anodes, Bnodes, Tnodes)
     #  __import__('pdb').set_trace()
     # test the DFS and BFS
-    sp = dfs_shortest_path(g, Anodes[10], Bnodes[1], to_print=True)
-    #  sp = BFS(g, start=Anodes[13], end=Bnodes[5])
+    #  sp = dfs_shortest_path(g, Anodes[10], Bnodes[1], to_print=True)
+    sp = BFS(g, start=Anodes[13], end=Bnodes[5])
     sp = print_path(sp)
     print(f"The shortest path is {sp}")
