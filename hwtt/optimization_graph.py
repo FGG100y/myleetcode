@@ -59,7 +59,7 @@ class Digraph(object):
 
     def __init__(self):
         """
-        nodes is a list of the nodes in the graph
+        nodes is a list of the Nodes in the graph
         edegs is a mapping each node to a list of its children
         """
         self.nodes = []
