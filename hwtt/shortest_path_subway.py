@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-# shortest path: Depth-First-Search
+# shortest path: Depth-First-Search & Breadth-First-Search
 
 
 #  from optimization_graph import Digraph
@@ -49,13 +49,53 @@ def DFS(graph, start, end, path, shortest, to_print=False):
     return shortest
 
 
+def test_dfs(graph, start, end, path, shortest, to_print=False):
+    """return a shortest path from start to end in graph
+
+    :type graph: Graph
+    :type start: Node
+    :type end: Node
+    :type path: list of Nodes
+    :type shortest: list of Nodes
+    :type to_print: boolean
+    """
+    path += [start]
+    if to_print:
+        cpath = print_path(path)
+        print(f"Current DFS path: {cpath}")
+    if start == end:
+        return path
+
+    # this is not always ture to find the shortest path,
+    # when it takes the longer path to the end, it returns the result,
+    # but this do not guaranteed to find the shortest one,
+    # it needs to loop over all the children of the first start to find the
+    # shortest path
+    # NOTE: this proble may involed with the implementation with Edge and Node
+    # classes
+    # Sun 15 Mar 2020 22:16:00
+
+    #  test = graph.children_of(start)
+    #  print(test)
+    # test has two children node, the code below went though the first node
+    # and return the result, but it is not the shortest path
+    #  __import__('pdb').set_trace()
+    for node in graph.children_of(start):
+        if node not in path:  # advoid stuck in cycle path
+            if shortest is None or len(path) < len(shortest):
+                new_path = DFS(graph, node, end, path, shortest, to_print)
+                if new_path is not None:
+                    shortest = new_path
+    return shortest
+
+
 # DFS did not work correctly
 def dfs_shortest_path(graph, start, end, to_print=False):
     """return a shortest_path from start to end in graph"""
     # function called DFS to initialize the seaching progress
     # path=[] : the current path being explored is empty
     # shortest is None : no path from start to end has yet been found
-    return DFS(graph, start, end, [], None, to_print)
+    return test_dfs(graph, start, end, [], None, to_print)
 # ----------------------------------------------------------------------------
 
 
@@ -141,7 +181,7 @@ if __name__ == "__main__":
     g = build_graph(Anodes, Bnodes, Tnodes)
     #  __import__('pdb').set_trace()
     # test the DFS and BFS
-    #  sp = dfs_shortest_path(g, Anodes[10], Bnodes[1], to_print=True)
-    sp = BFS(g, start=Anodes[13], end=Bnodes[5])
+    sp = dfs_shortest_path(g, Anodes[12], Anodes[1], to_print=True)
+    #  sp = BFS(g, start=Anodes[13], end=Bnodes[5])
     sp = print_path(sp)
     print(f"The shortest path is {sp}")
