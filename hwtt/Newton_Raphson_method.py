@@ -24,6 +24,41 @@ def square_root(num, epsilon=0.001):
     return guess
 
 
+def find_root(x, power, epsilon=0.001):
+    # polynomial: x**power - 12 = 0
+    if x < 0 and power % 2 == 0:
+        return None
+    guess = x / 2.0
+    while abs(guess**power - x) >= epsilon:
+        try:
+            guess -= (guess**power - x) / (power*(guess**(power - 1)))
+        except Exception as e:
+            raise e
+
+    return guess
+
+
+# ----------------------------------------------------------------------------
+def _first_derivative():
+    # polynomial: x**3 + x - 12 = 0
+    pass
+
+
+# seems there is no obvious solution to program this out
+def find_poly_root(x, degrees, epsilon=0.001):
+    """return y such that polynomial(y) is within epsilon of x
+    :type x: numeric
+    :type degrees: tuple of ints that represent polynomial degrees, high to low
+    :type epsilon: numeric
+    :rtype float
+    """
+    # polynomial: x**3 + x - 12 = 0
+    # no solution:
+
+    pass
+# ----------------------------------------------------------------------------
+
+
 def square_root_bs(num, epsilon=0.001):
     """find the square root of an integer using binary search
     :type num: int
@@ -46,8 +81,8 @@ def square_root_bs(num, epsilon=0.001):
     return ans
 
 
-def find_root(x, power, epsilon=0.001):
-    """return y such that y**power is within epsilon of x
+def find_root_bs(x, power, epsilon=0.001):
+    """return y such that y**power is within epsilon of x | binary search
     :type x: numeric
     :type power: int
     :type epsilon: numeric
@@ -69,7 +104,10 @@ def find_root(x, power, epsilon=0.001):
 
 if __name__ == "__main__":
     #  num = 0.49
-    num = 2.5
+    num = 8
+    power = 3
     print(square_root(num))
+    print(find_root(num, power=power))
+    print('*'*11)
     print(square_root_bs(num))
-    print(find_root(num, power=2))
+    print(find_root_bs(num, power=power))
