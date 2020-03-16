@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
-# lss common method
 
 
-def longest_ss(s):
+def longest_substring(s):
     # start, end to keep tracking the current substring
     # 'end' begin at index i=0, move forword, if  a second char at index j,
     # store the candidate lss=s[i:j], iff len(lss) < j-i+1, update the lss
@@ -31,4 +30,4 @@ if __name__ == "__main__":
     s = 'askkkkkksl,'
     print(s)
     print('='*len(s))
-    print(longest_ss(s))
+    print(longest_substring(s))
