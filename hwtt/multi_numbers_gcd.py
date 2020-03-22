@@ -11,6 +11,11 @@
 #   gcd(a, b) = gcd(a-b, b) if a > b
 #   gcd(a, b) = gcd(a, b-a) if a < b
 
+# 性质：
+# 任意a和b的共因素都是gcd(a, b)的约数
+# gcd函数满足＇交换律＇：gcd(a, b) = gcd(b, a)
+# gcd函数满足＇结合律＇：gcd(a, gcd(b, c)) = gcd(gcd(a, b), c)
+
 
 # the first recursive function I wrote ^^, Sun 22 Mar 2020 23:11:14
 def gcd(a, b):
@@ -29,15 +34,15 @@ def gcd(a, b):
 
 # the more general algorithm, and more efficient one too
 def gcd2(a, b):
-    if b == 0:
-        return a
+    if a % b == 0:
+        return b
     else:
         return gcd(b, a % b)
 
 
 if __name__ == "__main__":
-    a = 12
-    b = 44
+    a = 11
+    b = 42
     print(gcd(a, b))
     print()
     print(gcd2(a, b))
