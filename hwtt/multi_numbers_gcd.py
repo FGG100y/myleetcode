@@ -16,6 +16,8 @@
 # gcd函数满足＇交换律＇：gcd(a, b) = gcd(b, a)
 # gcd函数满足＇结合律＇：gcd(a, gcd(b, c)) = gcd(gcd(a, b), c)
 
+from functools import reduce
+
 
 # the first recursive function I wrote ^^, Sun 22 Mar 2020 23:11:14
 def gcd(a, b):
@@ -40,9 +42,20 @@ def gcd2(a, b):
         return gcd(b, a % b)
 
 
+def multi_gcd(lst_nums):
+    """returns the gcd of multiple numbers
+    :type lst_nums: list, of numbers
+    :rtype int
+    """
+    return reduce(gcd2, lst_nums)
+
+
 if __name__ == "__main__":
     a = 11
     b = 42
     print(gcd(a, b))
     print()
     print(gcd2(a, b))
+    print()
+    lst_nums = [121, 33, 44, 11, 1111]
+    print(multi_gcd(lst_nums))
