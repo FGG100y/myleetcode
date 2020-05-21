@@ -17,6 +17,10 @@ class Node(object):
     def __str__(self):
         return self.name
 
+    # to print each element in list
+    def __repr__(self):
+        return self.__str__()
+
 
 class Edge(object):
     """description"""
@@ -50,7 +54,7 @@ class WeightedEdge(Edge):
         return self.weight
 
     def __str__(self):
-        return f"{self.src.get_name()} ->({self.weight}) {self.dest.get_name()}"
+        return f"{self.src.get_name()} ->({self.weight}){self.dest.get_name()}"
 
 
 class Digraph(object):
@@ -59,7 +63,7 @@ class Digraph(object):
 
     def __init__(self):
         """
-        nodes is a list of the nodes in the graph
+        nodes is a list of the Nodes in the graph
         edegs is a mapping each node to a list of its children
         """
         self.nodes = []
