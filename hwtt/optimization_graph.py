@@ -8,7 +8,6 @@ class Node(object):
     """Docstring for Node. """
 
     def __init__(self, name):
-        """TODO: to be defined. """
         self.name = name
 
     def get_name(self):
